@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update]
 
   def show
-    @posts = current_user.posts.order(created_at: :desc)
+    @user  = User.find(params[:id])
+    @posts = @user.posts.order(created_at: :desc)
   end
 
   def edit; end
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
     current_user.update(user_params)
     redirect_to current_user
   end
-  
+
   private
 
   def user_params
